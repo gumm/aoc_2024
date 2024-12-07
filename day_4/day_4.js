@@ -2,7 +2,7 @@ import {
   getInMatrix,
   readDirection,
   linesToArray,
-  logIt,
+  inspect,
   readInput,
   readMatrix,
   rotateMatrix,
@@ -30,7 +30,7 @@ const SAMX = /SAMX/g;
     task1 += (row.match(SAMX) || []).length
   })
 })
-logIt(task1);
+inspect(task1);
 
 
 // Task2: 1858
@@ -50,7 +50,7 @@ const searchMas = (ri, ci) => {
 };
 
 [matrix].forEach((arr) => {
-  arr.forEach((s, ri, m) => {
+  arr.forEach((s, ri) => {
     [...s].forEach((c, ci) => {
       if (c === "A") {
         searchMas(ri, ci)
@@ -59,7 +59,7 @@ const searchMas = (ri, ci) => {
   })
 })
 
-logIt(task2);
+inspect(task2);
 
 
 // Task1 Alt: 2454
@@ -84,4 +84,4 @@ matrix.forEach((row, ri) => {
     }
   })
 });
-logIt(task1A);
+inspect(task1A);

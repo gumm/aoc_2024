@@ -54,11 +54,13 @@ export const lineToIntArr = line => line.split(/\s+/).map(B.toInt);
 
 
 /**
- * Logs a value to the console.
+ * Logs a value to the console, and returns the value. Useful to inspect
+ * variables inline, or as part of a function composition.
+ * Can NOT log variadic input.
  * @param {*} e - The value to log.
  * @returns {*} The original input value.
  */
-export const logIt = e => {
+export const inspect = e => {
   console.log(e);
   return e
 };
@@ -429,3 +431,88 @@ export const makeCombos = (length, candidates) => {
   }
   return func([]);
 }
+
+
+// Graph Utilities -------------------------------------------------------------
+// The below utilities expect a graph to be described as a Map from a vertex to
+// a Set of vertices to which the key points.
+// const g = new Map([
+//   ['A', new Set(['B', 'C'])],
+//   ['B', new Set(['C', 'D'])],
+//   ['C', new Set(['D'])],
+//   ['E', new Set(['F'])],
+//   ['F', new Set(['C'])],
+//   ['D', new Set([])]
+// ]);
+
+/**
+ * Inverts a graph from am Map of "x points-to these"
+ * to a Map of "x is pointed to by these"
+ * @param graph
+ * @returns {*}
+ */
+export const graphInvert = graph => {
+  return [...graph.entries()].reduce((p, [k, v]) => {
+    p.set(k, p.has(k) ? p.get(k) : new Set());
+    v.forEach(e => p.set(e, p.has(e) ? new Set([...p.get(e), k]) : new Set([k])));
+    return p;
+  }, new Map())
+}
+
+/**
+ * Generates metadata information for a directed graph.
+ *
+ * @param {Map} graph - A Map representation of the directed graph,
+ * where keys are node identifiers and values are Sets of connected
+ * child node identifiers.
+ * @returns {Object} - An object containing metadata about the graph, including:
+ * - `inverted`: A Map representing the inverted graph where
+ *               keys are node identifiers and values are Sets of
+ *               parent node identifiers.
+ * - `inDegrees`: A Map where keys are node identifiers and values are
+ *                the in-degree count of the nodes (i.e., the number of edges
+ *                coming into the node).
+ * - `rootNodes`: An array of node identifiers representing the root nodes
+ *                of the graph, which are nodes with an in-degree of zero.
+ */
+export const graphMetaInfo = graph => {
+  const inverted = graphInvert(graph)
+  const inDegrees = [...inverted.entries()].reduce(
+    (p, [k,s]) => p.set(k, s.size), new Map());
+  const rootNodes = [...inDegrees.entries()].reduce((p,[k, s]) => s ? p : [...p, k], []);
+  return {inDegrees, rootNodes, inverted}
+};
+
+/**
+ * Sorts the nodes of a directed graph topologically using Kahn's algorithm.
+ *
+ * This function takes a directed graph represented as a map or adjacency list
+ * and returns an array representing a topological ordering of the graph's nodes.
+ * It is assumed the graph is a Directed Acyclic Graph (DAG)
+ *
+ * @param {Map} g - A DAG represented as an adjacency list, where the keys are
+ *                  the nodes and the values are arrays of nodes
+ *                  representing directed edges from the key node.
+ * @returns {Array} An array of nodes representing a topological
+ *                  sort of the graph.
+ *                  The order respects the direction of the edges;
+ *                  for any directed edge u -> v, u appears before v.
+ */
+export const graphTopoSort = g => {
+  const  {inDegrees, rootNodes} = graphMetaInfo(g);
+  const sorted = [];
+
+  while (rootNodes.length) {
+    const u = rootNodes.pop();
+    sorted.push(u);
+    g.get(u).forEach(v => {
+      inDegrees.set(v, inDegrees.get(v) - 1);
+      if (inDegrees.get(v) === 0) {
+        rootNodes.push(v);
+      }
+    });
+  }
+  return sorted;
+};
+
+

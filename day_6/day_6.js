@@ -2,7 +2,7 @@ import {
   cardinalMap,
   getInMatrix,
   linesToArray,
-  logIt,
+  inspect,
   readInput,
   setInMatrix,
   sumArrays,
@@ -23,7 +23,7 @@ let pointer = 0;
 let heading = cardinalMap.get("N");
 
 // Find the caret
-const ri = matrix.findIndex((row, i) => row.includes('^'));
+const ri = matrix.findIndex(row => row.includes('^'));
 const ci = matrix[ri].indexOf('^')
 let caret = [ri, ci];
 const startingPos = caret;
@@ -66,5 +66,5 @@ task1 = path.size;
   markPos(seenPos, matrixVal);
 })
 
-logIt(task1);
-logIt(task2);
+inspect(task1);
+inspect(task2);

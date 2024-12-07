@@ -1,4 +1,4 @@
-import {linesToArray, logIt, readInput, makeCombos,} from "../utils.js";
+import {linesToArray, inspect, readInput, makeCombos,} from "../utils.js";
 
 // Parse Input
 let task1 = 0;
@@ -42,7 +42,7 @@ const calc = operations => {
 }
 
 task1 = calc([add, mul]);
-logIt(task1); // 465126289353
+inspect(task1); // 465126289353
 
 task2 = calc([add, mul, cat])
-logIt(task2); // 70597497486371
+inspect(task2); // 70597497486371

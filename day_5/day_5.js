@@ -1,4 +1,4 @@
-import {linesToArray, logIt, readInput} from "../utils.js";
+import {inspect, linesToArray, readInput} from "../utils.js";
 import * as B from "badu";
 
 // Parse Input
@@ -9,10 +9,9 @@ const pages = linesToArray(readInput('aoc_5_0.txt')).map(e => e.split(',').map(B
 
 // Build a map of rules.
 const ruleMap = new Map();
-rules.forEach((row, ri) => {
+rules.forEach(row => {
   ruleMap.set(row[0], new Set([...ruleMap.get(row[0]) || [], row[1]]));
 })
-
 
 pages.forEach(page => {
   const pName = page.join('');
@@ -31,5 +30,5 @@ pages.forEach(page => {
   pName === sorted.join('') ? task1 += midVal : task2 += midVal;
 })
 
-logIt(task1);
-logIt(task2);
+inspect(task1);
+inspect(task2);
