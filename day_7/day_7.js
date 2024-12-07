@@ -1,30 +1,14 @@
-import {linesToArray, logIt, readInput,} from "../utils.js";
+import {linesToArray, logIt, readInput, makeCombos,} from "../utils.js";
 
 // Parse Input
-let task1 = 0; // 465126289353
-let task2 = 0; // 70597497486371
+let task1 = 0;
+let task2 = 0;
 const lists = linesToArray(readInput('aoc_7_0.txt'));
 
 // Operations
 const add = (a, b) => a + b;
 const mul = (a, b) => a * b;
 const cat = (a, b) => Number(`${a}${b}`);
-
-// How many ways can I arrange m candidates in an arrangement of n slots?
-const makeCombos = (nSlots, candidates) => {
-  const func = (combo) => {
-    if (combo.length === nSlots) {
-      return [combo];
-    }
-    const combos = [];
-    for (let op of candidates) {
-      const nextCombo = [...combo, op];
-      combos.push(...func(nextCombo));
-    }
-    return combos;
-  }
-  return func([]);
-}
 
 const calc = operations => {
   let total = 0;
@@ -44,7 +28,7 @@ const calc = operations => {
       comboMap.set(slots, combos);
     }
 
-    const foundAt = combos.findIndex(combo => {
+    const found = combos.find(combo => {
       return input.reduce((p, c, i) => {
         if (i === 0) {
           return c;
@@ -52,15 +36,13 @@ const calc = operations => {
         return combo[i - 1](p, c)
       }, undefined) === target;
     });
-    if (foundAt >= 0) {
-      total += target;
-    }
+    total = found ? total + target : total;
   })
   return total;
 }
 
 task1 = calc([add, mul]);
-logIt(task1);
+logIt(task1); // 465126289353
 
 task2 = calc([add, mul, cat])
-logIt(task2);
+logIt(task2); // 70597497486371
