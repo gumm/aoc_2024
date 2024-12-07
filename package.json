@@ -1,0 +1,17 @@
+{
+  "name": "aoc_2024",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "type": "module",
+  "keywords": [],
+  "dependencies": {
+    "badu": "^8.4.0",
+    "ramda": "^0.30.1"
+  },
+  "author": "",
+  "license": "ISC",
+  "description": ""
+}
