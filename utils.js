@@ -42,7 +42,8 @@ export const linesToArray = input => input.split('\n');
  * @param func
  * @returns {function(*): *}
  */
-export const splitOnWhiteSpace = (func = B.identity) => line => line.split(/\s+/).map(func);
+export const splitOnWhiteSpace = (func = B.identity) =>
+    line => line.split(/\s+/).map(func);
 
 
 /**
@@ -50,7 +51,8 @@ export const splitOnWhiteSpace = (func = B.identity) => line => line.split(/\s+/
  * @param {string} line - A string containing space-separated numbers.
  * @returns {number[]} An array of parsed integers.
  */
-export const lineToIntArr = line => line.split(/\s+/).map(B.toInt);
+export const lineToIntArr = line =>
+  line.split(/\s+/).map(B.toInt);
 
 
 /**
@@ -70,7 +72,8 @@ export const inspect = e => {
  * @param {number[]} arr - The input array of numbers.
  * @returns {number} The total sum of the array elements.
  */
-export const sumArr = arr => arr.reduce((a, b) => a + b, 0);
+export const sumArr = arr =>
+  arr.reduce((a, b) => a + b, 0);
 
 
 /**
@@ -78,7 +81,8 @@ export const sumArr = arr => arr.reduce((a, b) => a + b, 0);
  * @param {number[]} arr - The input array of numbers.
  * @returns {number} The total product of the array elements.
  */
-export const productArr = arr => arr.reduce((a, b) => a * b, 1);
+export const productArr = arr =>
+  arr.reduce((a, b) => a * b, 1);
 
 
 /**
@@ -107,7 +111,8 @@ export const isNotNaN = e => !isNaN(e);
  * @param {number[]} arr - The input array of numbers.
  * @returns {number[]} An array of differences between consecutive elements.
  */
-export const diffList = arr => arr.map((e, i, a) => e - a[i + 1]).filter(isNotNaN);
+export const diffList = arr =>
+  arr.map((e, i, a) => e - a[i + 1]).filter(isNotNaN);
 
 /**
  * Converts an array of numbers to their absolute values.
@@ -116,8 +121,10 @@ export const diffList = arr => arr.map((e, i, a) => e - a[i + 1]).filter(isNotNa
  * and returns a new array where each element is the absolute value
  * of the corresponding element in the input array.
  *
- * @param {number[]} arr - The array of numbers to be converted to absolute values.
- * @returns {number[]} A new array containing the absolute values of the input array.
+ * @param {number[]} arr - The array of numbers to be converted
+ *      to absolute values.
+ * @returns {number[]} A new array containing the absolute values
+ *      of the input array.
  */
 export const arrToAbs = arr => arr.map(Math.abs);
 
@@ -179,7 +186,8 @@ export const sortNumeric = (a, b) => a - b;
  * @param {*[]} arr - The input array.
  * @returns {*[][]} An array of arrays, each with one element removed.
  */
-export const subSpecies = arr => arr.map((e, i, a) => a.toSpliced(i, 1));
+export const subSpecies = arr =>
+  arr.map((e, i, a) => a.toSpliced(i, 1));
 
 /**
  * Checks if a given range is within the specified minimum and maximum boundaries.
@@ -191,7 +199,8 @@ export const subSpecies = arr => arr.map((e, i, a) => a.toSpliced(i, 1));
  *                       It returns a boolean indicating whether the range [minV, maxV] falls within
  *                       the specified boundaries [min, max], inclusive.
  */
-export const testBetween = (min, max) => ([minV, maxV]) => minV >= min && maxV <= max;
+export const testBetween = (min, max) =>
+  ([minV, maxV]) => minV >= min && maxV <= max;
 
 
 /**
@@ -244,19 +253,23 @@ export const rotateMatrix = arr => {
  * @param fill
  * @returns {Array<Array<*>>} A new skew-right matrix.
  */
-export const skewMatrixRight = (arr, fill='.') => arr.reduce(
+export const skewMatrixRight = (arr, fill = '.') => arr.reduce(
   (p, c, i) => {
-  const l = arr.length - 1;
-  const newRow = [...Array(i).fill(fill), ...c, ...Array(l - i).fill(fill)];
-  return [...p, newRow];
-}, [])
+    const l = arr.length - 1;
+    const newRow = [
+      ...Array(i).fill(fill),
+      ...c,
+      ...Array(l - i).fill(fill)
+    ];
+    return [...p, newRow];
+  }, [])
 
 
 /**
  * Constructs a new 2D matrix (array of arrays) by transforming the input
- *  matrix, by moving each row to the left by its index number.
- * The resultant matrix is padded as needed to be able to contain the original
- *  matrix.
+ * matrix, by moving each row to the left by its index number.
+ * The resultant matrix is padded as needed to be able to contain the
+ * original matrix.
  * @example
  *    const matrix = [
  *      [ 1,2,3 ],
@@ -274,16 +287,21 @@ export const skewMatrixRight = (arr, fill='.') => arr.reduce(
  * @param fill
  * @returns {Array<Array<*>>} A new skew-left matrix.
  */
-export const skewMatrixLeft = (arr, fill='.') => arr.reduce(
+export const skewMatrixLeft = (arr, fill = '.') => arr.reduce(
   (p, c, i) => {
-  const l = arr.length - 1 ;
-  const newRow = [...Array(l - i).fill(fill), ...c, ...Array(i).fill(fill)];
-  return [...p, newRow];
-}, []);
+    const l = arr.length - 1;
+    const newRow = [
+      ...Array(l - i).fill(fill),
+      ...c,
+      ...Array(i).fill(fill)
+    ];
+    return [...p, newRow];
+  }, []);
 
 
 /**
- * Creates a curried function to safely retrieve a value from a matrix (2D array)
+ * Creates a curried function to safely retrieve a value from a
+ * matrix (2D array)
  * @example
  *  const matrix = [
  *    [ 1,2,3 ],
@@ -294,15 +312,17 @@ export const skewMatrixLeft = (arr, fill='.') => arr.reduce(
  *  get([1,1]) // 5
  *  get([5,5]) // undefined
  * @param {Array<Array<*>>} matrix - The 2D array to retrieve values from
- * @returns {function(Array<number>): *} A function that takes [row, column] coordinates and returns the value
+ * @returns {function(Array<number>): *} A function that takes [row, column]
+ *      coordinates and returns the value
  */
-export const getInMatrix = matrix => ([ri, ci]) => (matrix[ri] || [])[ci];
+export const getInMatrix = matrix =>
+  ([ri, ci]) => (matrix[ri] || [])[ci];
 
 /**
  * Creates a curried function to safely set a value in a matrix (2D array)
  * @description Mutates the original matrix by setting a value at the
- *  specified coordinates. It does nothing if the given coordinates are outside
- *  of the matrix.
+ * specified coordinates. It does nothing if the given coordinates
+ * are outside of the matrix.
  * @example
  *    const matrix = [
  *      [ 1,2,3 ],
@@ -317,9 +337,11 @@ export const getInMatrix = matrix => ([ri, ci]) => (matrix[ri] || [])[ci];
  *      [ 7, 8, 9 ]
  *    ]
  * @param {Array<Array<*>>} matrix - The 2D array to modify
- * @returns {function(Array<number>, *): *} A function that takes [row, column] coordinates and a value to set
+ * @returns {function(Array<number>, *): *} A function that takes [row, column]
+ *      coordinates and a value to set
  */
-export const setInMatrix = matrix => ([ri, ci], c) => (matrix[ri] || [])[ci] = c;
+export const setInMatrix = matrix =>
+  ([ri, ci], c) => (matrix[ri] || [])[ci] = c;
 
 
 /**
@@ -337,9 +359,9 @@ export const setInMatrix = matrix => ([ri, ci], c) => (matrix[ri] || [])[ci] = c
  *  read([[0,0],[1,1],[2,2]]) // [ 1, 5, 9 ]
  *
  * @param {Array<Array<any>>} matrix - A two-dimensional array representing
- *        the matrix that contains elements to be processed.
+ *      the matrix that contains elements to be processed.
  * @returns {Function} - A function that takes in an array of coordinates, and
- *          returns an array of matrix values at those coordinates.
+ *      returns an array of matrix values at those coordinates.
  */
 export const readMatrix = matrix => {
   const func = getInMatrix(matrix);
@@ -349,10 +371,10 @@ export const readMatrix = matrix => {
 /**
  * Writes a two-dimensional array (matrix) to a specified file.
  * @param {Array<Array<*>>} matrix - The matrix to be written to a file.
- *        It is a two-dimensional array where each sub-array represents a row.
+ *      It is a two-dimensional array where each sub-array represents a row.
  * @param {string} filename - The name of the file where the matrix
- *        will be written. The file will be created or overwritten
- *        with the matrix data.
+ *      will be written. The file will be created or overwritten
+ *      with the matrix data.
  */
 export const wireMatrixToFile = (matrix, filename) => {
   writeOutput(filename, matrix.map(e => e.join(' ')).join('\n'));
@@ -413,9 +435,10 @@ export const sumArrays = (arr1, arr2) => arr1.map((e, i) => e + arr2[i]);
  *     ]
  *
  * @param {number} length - The length of each combination.
- * @param {Array} candidates - An array of candidate elements to be used for forming combinations.
+ * @param {Array} candidates - An array of candidate elements to be used for
+ *      forming combinations.
  * @returns {Array} An array containing all possible combinations of
- *    the candidate elements, each of length `length`.
+ *      the candidate elements, each of length `length`.
  */
 export const makeCombos = (length, candidates) => {
   const func = (combo) => {
@@ -454,7 +477,10 @@ export const makeCombos = (length, candidates) => {
 export const graphInvert = graph => {
   return [...graph.entries()].reduce((p, [k, v]) => {
     p.set(k, p.has(k) ? p.get(k) : new Set());
-    v.forEach(e => p.set(e, p.has(e) ? new Set([...p.get(e), k]) : new Set([k])));
+    v.forEach(e => p.set(e, p.has(e)
+      ? new Set([...p.get(e), k])
+      : new Set([k]))
+    );
     return p;
   }, new Map())
 }
@@ -467,19 +493,19 @@ export const graphInvert = graph => {
  * child node identifiers.
  * @returns {Object} - An object containing metadata about the graph, including:
  * - `inverted`: A Map representing the inverted graph where
- *               keys are node identifiers and values are Sets of
- *               parent node identifiers.
+ *      keys are node identifiers and values are Sets of
+ *      parent node identifiers.
  * - `inDegrees`: A Map where keys are node identifiers and values are
- *                the in-degree count of the nodes (i.e., the number of edges
- *                coming into the node).
+ *      the in-degree count of the nodes (i.e., the number of edges coming
+ *      into the node).
  * - `rootNodes`: An array of node identifiers representing the root nodes
- *                of the graph, which are nodes with an in-degree of zero.
+ *      of the graph, which are nodes with an in-degree of zero.
  */
 export const graphMetaInfo = graph => {
   const inverted = graphInvert(graph)
   const inDegrees = [...inverted.entries()].reduce(
-    (p, [k,s]) => p.set(k, s.size), new Map());
-  const rootNodes = [...inDegrees.entries()].reduce((p,[k, s]) => s ? p : [...p, k], []);
+    (p, [k, s]) => p.set(k, s.size), new Map());
+  const rootNodes = [...inDegrees.entries()].reduce((p, [k, s]) => s ? p : [...p, k], []);
   return {inDegrees, rootNodes, inverted}
 };
 
@@ -490,22 +516,22 @@ export const graphMetaInfo = graph => {
  * and returns an array representing a topological ordering of the graph's nodes.
  * It is assumed the graph is a Directed Acyclic Graph (DAG)
  *
- * @param {Map} g - A DAG represented as an adjacency list, where the keys are
- *                  the nodes and the values are arrays of nodes
- *                  representing directed edges from the key node.
+ * @param {Map} graph - A DAG represented as an adjacency list, where the keys are
+ *      the nodes and the values are arrays of nodes
+ *      representing directed edges from the key node.
  * @returns {Array} An array of nodes representing a topological
- *                  sort of the graph.
- *                  The order respects the direction of the edges;
- *                  for any directed edge u -> v, u appears before v.
+ *      sort of the graph.
+ *      The order respects the direction of the edges;
+ *      for any directed edge u -> v, u appears before v.
  */
-export const graphTopoSort = g => {
-  const  {inDegrees, rootNodes} = graphMetaInfo(g);
+export const graphTopoSort = graph => {
+  const {inDegrees, rootNodes} = graphMetaInfo(graph);
   const sorted = [];
 
   while (rootNodes.length) {
     const u = rootNodes.pop();
     sorted.push(u);
-    g.get(u).forEach(v => {
+    graph.get(u).forEach(v => {
       inDegrees.set(v, inDegrees.get(v) - 1);
       if (inDegrees.get(v) === 0) {
         rootNodes.push(v);
