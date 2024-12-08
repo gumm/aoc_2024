@@ -40,7 +40,6 @@ export const splitNL = input => input.split('\n');
 export const splitChar = input => input.split('');
 
 
-
 /**
  *
  * @param func
@@ -348,12 +347,35 @@ export const setInMatrix = matrix =>
   ([ri, ci], c) => (matrix[ri] || [])[ci] = c;
 
 
-export const isInMatrix = matrix => {
+export const isCoordInMatrix = matrix => {
   const w = matrix[0].length;
   const h = matrix.length;
   return ([r, c]) => r >= 0 && r < h && c >= 0 && c < w;
 }
 
+
+/**
+ * Given a matrix, return the unique elements in it.
+ * @param matrix Array<Array<*>> – The 2D array to retrieve values from
+ * @returns {Array<*>}
+ */
+export const uniqInMatrix = matrix => [...new Set(matrix.reduce((p, c) => {
+  return [...p, ...(new Set(c))]
+}, []))]
+
+/**
+ * @param matrix Array<Array<*>> – The 2D array to retrieve values from
+ * @returns {function(!*): Array<*>}
+ */
+export const findAllInMatrix = matrix => e => matrix.reduce(
+  (p, row, ri) => {
+    row.forEach((c, ci) => {
+      if (c === e) {
+        p.push([ri, ci])
+      }
+    })
+    return p;
+  }, []);
 
 
 /**

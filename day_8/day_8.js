@@ -1,37 +1,28 @@
 import {
   difArrs,
+  findAllInMatrix,
   inspect,
-  isInMatrix,
+  isCoordInMatrix,
   readFile,
   splitChar,
   splitNL,
   sumArrs,
+  uniqInMatrix,
 } from "../utils.js";
 
-// Parse Input
 const t1Set = new Set();
 const t2Set = new Set();
+
+// Parse Input
 const matrix = splitNL(readFile('aoc_8_0.txt')).map(splitChar);
-const inBox = isInMatrix(matrix);
+const inBox = isCoordInMatrix(matrix);
+const find = findAllInMatrix(matrix);
 
 // Get a list of unique elements in the matrix.
-const unq = [...new Set(matrix.reduce((p, c) => {
-  return [...p, ...(new Set(c))]
-}, []))].filter(e => e !== '.')
+const unq = uniqInMatrix(matrix).filter(e => e !== '.');
 
 // Create a map of where in the matrix each of the types are.
-const map = new Map();
-for (let e of unq) {
-  const p = [];
-  matrix.forEach((row, ri) => {
-    row.forEach((c, ci) => {
-      if (c === e) {
-        p.push([ri, ci])
-      }
-    })
-  })
-  map.set(e, p);
-}
+const map = unq.reduce((p, e) => p.set(e, find(e)), new Map());
 
 // Walk through the map, and for each antenna, compute its nulls.
 for (const [_, v] of map) {
