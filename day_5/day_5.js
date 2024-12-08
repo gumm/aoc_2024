@@ -1,11 +1,11 @@
-import {inspect, linesToArray, readInput} from "../utils.js";
+import {inspect, splitNL, readFile} from "../utils.js";
 import * as B from "badu";
 
 // Parse Input
 let task1 = 0; // 4185
 let task2 = 0; // 4480
-const rules = linesToArray(readInput('order.txt')).map(e => e.split('|').map(B.toInt));
-const pages = linesToArray(readInput('aoc_5_0.txt')).map(e => e.split(',').map(B.toInt));
+const rules = splitNL(readFile('order.txt')).map(e => e.split('|').map(B.toInt));
+const pages = splitNL(readFile('aoc_5_0.txt')).map(e => e.split(',').map(B.toInt));
 
 // Build a map of rules.
 const ruleMap = new Map();

@@ -1,9 +1,9 @@
-import {linesToArray, inspect, readInput, makeCombos,} from "../utils.js";
+import {splitNL, inspect, readFile, makeCombos,} from "../utils.js";
 
 // Parse Input
 let task1 = 0;
 let task2 = 0;
-const lists = linesToArray(readInput('aoc_7_0.txt'));
+const lists = splitNL(readFile('aoc_7_0.txt'));
 
 // Operations
 const add = (a, b) => a + b;

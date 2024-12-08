@@ -1,18 +1,17 @@
 import {
-  diffArrays,
+  difArrs,
   inspect,
   isInMatrix,
-  linesToArray,
-  readInput,
-  reverseHeading,
-  sumArrays,
+  readFile,
+  splitChar,
+  splitNL,
+  sumArrs,
 } from "../utils.js";
 
 // Parse Input
-const t1Set = new Set()
-const t2Set = new Set()
-const matrix = linesToArray(readInput('aoc_8_0.txt'))
-  .map(e => e.split(''));
+const t1Set = new Set();
+const t2Set = new Set();
+const matrix = splitNL(readFile('aoc_8_0.txt')).map(splitChar);
 const inBox = isInMatrix(matrix);
 
 // Get a list of unique elements in the matrix.
@@ -39,10 +38,10 @@ for (const [_, v] of map) {
   while (v.length > 1) {
     const a1 = v.shift();
     v.forEach(a2 => {
-      const heading1 = diffArrays(a1, a2);
-      const heading2 = reverseHeading(heading1);
-      let p1 = sumArrays(a1, heading1);
-      let p2 = sumArrays(a2, heading2);
+      const heading1 = difArrs(a1, a2);
+      const heading2 = difArrs(a2, a1);
+      let p1 = sumArrs(a1, heading1);
+      let p2 = sumArrs(a2, heading2);
 
       // Task1:
       [p1, p2].filter(inBox).forEach(p => t1Set.add(p.join()))
@@ -55,11 +54,11 @@ for (const [_, v] of map) {
       // Loop through all the nulls in both directions
       while (inBox(p1)) {
         t2Set.add(p1.join());
-        p1 = sumArrays(p1, heading1);
+        p1 = sumArrs(p1, heading1);
       }
       while (inBox(p2)) {
         t2Set.add(p2.join());
-        p2 = sumArrays(p2, heading2);
+        p2 = sumArrs(p2, heading2);
       }
 
     })

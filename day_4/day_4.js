@@ -1,17 +1,17 @@
 import {
   getInMatrix,
   readDirection,
-  linesToArray,
+  splitNL,
   inspect,
-  readInput,
+  readFile,
   readMatrix,
   rotateMatrix,
   skewMatrixLeft,
-  skewMatrixRight
+  skewMatrixRight, splitChar
 } from "../utils.js";
 
 // Parse Input
-const matrix = linesToArray(readInput('aoc_4_0.txt')).map(e => e.split(''));
+const matrix = splitNL(readFile('aoc_4_0.txt')).map(splitChar);
 const readM = readMatrix(matrix);
 
 // Task1: We rotate and skew the matrix and search for the elements in each

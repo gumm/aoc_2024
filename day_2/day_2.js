@@ -5,16 +5,16 @@ import {
   arrToAbsMinMax,
   diffList,
   filterOnlyTrue,
-  linesToArray,
+  splitNL,
   splitOnWhiteSpace,
-  readInput,
+  readFile,
   subSpecies,
   testBetween,
 } from "../utils.js";
 
 // Parse Input
-const inputString = readInput('aoc_2_0.txt');
-const inputArr = linesToArray(inputString).map(splitOnWhiteSpace(B.toInt));
+const inputString = readFile('aoc_2_0.txt');
+const inputArr = splitNL(inputString).map(splitOnWhiteSpace(B.toInt));
 
 // Task1: 282
 const posPredicate = testBetween(1, 3);

@@ -1,16 +1,16 @@
 import * as B from 'badu'
 import {
-  linesToArray,
+  splitNL,
   mapWithCounts,
-  readInput,
+  readFile,
   sortNumeric,
   splitOnWhiteSpace,
   sumArr,
 } from "../utils.js";
 
 // Parse Input
-const inputString = readInput('aoc_1_0.txt');
-const arr = linesToArray(inputString).map(splitOnWhiteSpace(B.toInt));
+const inputString = readFile('aoc_1_0.txt');
+const arr = splitNL(inputString).map(splitOnWhiteSpace(B.toInt));
 
 // Task1: 1666427
 const cols = B.columnAt(arr);

@@ -6,7 +6,7 @@ import fs from 'fs';
  * @param {string} filename
  * @returns {string}
  */
-export const readInput = (filename) => {
+export const readFile = (filename) => {
   try {
     return fs.readFileSync(filename, 'utf8').trim();
   } catch (e) {
@@ -35,7 +35,11 @@ export const trimWhiteSpace = e => e.trim();
  * @param {string} input - The input string with multiple lines.
  * @returns {string[]} An array of lines from the input string.
  */
-export const linesToArray = input => input.split('\n');
+export const splitNL = input => input.split('\n');
+
+export const splitChar = input => input.split('');
+
+
 
 /**
  *
@@ -428,9 +432,9 @@ export const readDirection = dir => {
 export const reverseHeading = ([r, c]) => [r * -1, c * -1]
 
 
-export const sumArrays = (arr1, arr2) => arr1.map((e, i) => e + arr2[i]);
+export const sumArrs = (arr1, arr2) => arr1.map((e, i) => e + arr2[i]);
 
-export const diffArrays = (arr1, arr2) => arr1.map((e, i) => e - arr2[i]);
+export const difArrs = (arr1, arr2) => arr1.map((e, i) => e - arr2[i]);
 
 
 

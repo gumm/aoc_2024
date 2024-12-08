@@ -1,18 +1,18 @@
 import {
   cardinalMap,
   getInMatrix,
-  linesToArray,
   inspect,
-  readInput,
+  readFile,
   setInMatrix,
-  sumArrays,
+  splitNL,
+  sumArrs,
 } from "../utils.js";
 import {tryCatch} from "ramda";
 
 // Parse Input
 let task1 = 0; // 4973
 let task2 = 0; // 1482
-const matrix = linesToArray(readInput('aoc_6_0.txt')).map(e => e.split(''));
+const matrix = splitNL(readFile('aoc_6_0.txt')).map(e => e.split(''));
 const getAtPos = getInMatrix(matrix);
 const markPos = setInMatrix(matrix);
 
@@ -36,7 +36,7 @@ const turn = () => {
 // Move ahead
 const move = () => {
   path.add(caret.join(','));
-  const nextPos = sumArrays(caret, heading);
+  const nextPos = sumArrs(caret, heading);
   const nextHurdle = getAtPos(nextPos);
   if (!nextHurdle) {
     return;
