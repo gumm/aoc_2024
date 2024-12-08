@@ -344,6 +344,14 @@ export const setInMatrix = matrix =>
   ([ri, ci], c) => (matrix[ri] || [])[ci] = c;
 
 
+export const isInMatrix = matrix => {
+  const w = matrix[0].length;
+  const h = matrix.length;
+  return ([r, c]) => r >= 0 && r < h && c >= 0 && c < w;
+}
+
+
+
 /**
  * Given a matrix, return a function that can take an array of coordinates,
  * and return a new array of the values of the matrix at each of those
@@ -377,7 +385,7 @@ export const readMatrix = matrix => {
  *      with the matrix data.
  */
 export const wireMatrixToFile = (matrix, filename) => {
-  writeOutput(filename, matrix.map(e => e.join(' ')).join('\n'));
+  writeOutput(filename, matrix.map(e => e.join('')).join('\n'));
 }
 
 /**
@@ -411,8 +419,20 @@ export const readDirection = dir => {
     .map((_, i) => [r + rMod * i, c + cMod * i]);
 };
 
+/**
+ * Reverse the given heading in the matrix
+ * @param {number!} r Row Index
+ * @param {number!} c Column Index
+ * @returns {number[]}
+ */
+export const reverseHeading = ([r, c]) => [r * -1, c * -1]
+
 
 export const sumArrays = (arr1, arr2) => arr1.map((e, i) => e + arr2[i]);
+
+export const diffArrays = (arr1, arr2) => arr1.map((e, i) => e - arr2[i]);
+
+
 
 /**
  * Generates all possible combinations of a given length using a set
