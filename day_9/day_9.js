@@ -6,15 +6,15 @@ const files = pairs(input);
 
 const spanScore = (score, start, span) => score * (start * span + sigma(span - 1));
 
+// Task1: Got lost in the struggle...
+
+// Task2: 6265268809555
 const [usedMap, freeMap, _] = files.reduce(([uM, fM, idx], [size, free], i) => {
-  uM.set(i, {idx: idx, size: size, i: i})
+  uM.set(i, {i: i, idx: idx, size: size})
   fM.set(i, {i: i, idx: idx + size, size: free || 0})
   return [uM, fM, idx + size + free];
 }, [new Map(), new Map(), 0]);
 
-// Task1: Got lost in the struggle...
-
-// Task2: 6265268809555
 for (let k = usedMap.size - 1; k > 0; k--) {
   const u = usedMap.get(k);
   const n = [...freeMap.values()].findIndex(e => u.i > e.i && e.size >= u.size);
