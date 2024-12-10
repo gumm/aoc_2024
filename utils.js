@@ -55,7 +55,7 @@ export const splitOnWhiteSpace = (func = B.identity) =>
  * @returns {number[]} An array of parsed integers.
  */
 export const lineToIntArr = line =>
-  line.split(/\s+/).map(B.toInt);
+  line.split('').map(B.toInt);
 
 
 /**
@@ -367,10 +367,10 @@ export const uniqInMatrix = matrix => [...new Set(matrix.reduce((p, c) => {
  * @param matrix Array<Array<*>> – The 2D array to retrieve values from
  * @returns {function(!*): Array<*>}
  */
-export const findAllInMatrix = matrix => e => matrix.reduce(
+export const findAllInMatrix = matrix => find => matrix.reduce(
   (p, row, ri) => {
     row.forEach((c, ci) => {
-      if (c === e) {
+      if (c === find) {
         p.push([ri, ci])
       }
     })
@@ -401,6 +401,19 @@ export const readMatrix = matrix => {
   const func = getInMatrix(matrix);
   return coords => coords.map(func);
 }
+
+export const allAround = ([r,c]) => [
+  [r-1,c-1], [r-1,c], [r-1,c+1],
+  [r,  c-1],          [r,  c+1],
+  [r+1,c-1], [r+1,c], [r+1,c+1],
+];
+
+export const crossAround = ([r,c]) => [
+            [r-1,c],
+  [r,  c-1],          [r,  c+1],
+             [r+1,c],
+];
+
 
 /**
  * Writes a two-dimensional array (matrix) to a specified file.
