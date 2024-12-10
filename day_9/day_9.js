@@ -6,7 +6,7 @@ const files = pairs(input);
 
 const spanScore = (score, start, span) => score * (start * span + sigma(span - 1));
 
-const [usedMap, freeMap, idx] = files.reduce(([uM, fM, idx], [size, free], i) => {
+const [usedMap, freeMap, _] = files.reduce(([uM, fM, idx], [size, free], i) => {
   uM.set(i, {idx: idx, size: size, i: i})
   fM.set(i, {i: i, idx: idx + size, size: free || 0})
   return [uM, fM, idx + size + free];
