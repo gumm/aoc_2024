@@ -587,4 +587,13 @@ export const graphTopoSort = graph => {
   return sorted;
 };
 
+/**
+ * Computes the sum of all positive integers up to and including a given number.
+ *
+ * @param {number} n - The upper bound of the summation series.
+ *    Must be a positive integer.
+ * @returns {number} The sum of all positive integers up to and
+ *    including n, or zero if n is less than or equal to zero.
+ */
+export const sigma = n => n <= 0 ? 0 : n + sigma(--n);
 
