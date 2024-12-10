@@ -1,8 +1,7 @@
 import {inspect, readFile, sigma} from "../utils.js";
-import * as B from "badu";
-import {pairs} from "badu";
+import {pairs, toInt} from "badu";
 
-const input = readFile('aoc_9_0.txt').split('').map(B.toInt);
+const input = readFile('aoc_9_0.txt').split('').map(toInt);
 const files = pairs(input);
 
 const spanScore = (score, start, span) => score * (start * span + sigma(span - 1));
