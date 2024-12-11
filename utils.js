@@ -55,7 +55,7 @@ export const splitOnWhiteSpace = (func = B.identity) =>
  * @returns {number[]} An array of parsed integers.
  */
 export const lineToIntArr = line =>
-  line.split('').map(B.toInt);
+  line.split(/\s+/).map(B.toInt);
 
 
 /**
@@ -70,9 +70,14 @@ export const inspect = e => {
   return e
 };
 
+export const inspectAs = s => e => {
+  console.log(s, e);
+  return e
+};
+
 /**
  * Calculates the sum of all numbers in an array.
- * @param {number[]} arr - The input array of numbers.
+ * @param {IterableIterator[]} arr - The input array of numbers.
  * @returns {number} The total sum of the array elements.
  */
 export const sumArr = arr =>
@@ -422,9 +427,10 @@ export const crossAround = ([r,c]) => [
  * @param {string} filename - The name of the file where the matrix
  *      will be written. The file will be created or overwritten
  *      with the matrix data.
+ * @param delim
  */
-export const wireMatrixToFile = (matrix, filename) => {
-  writeOutput(filename, matrix.map(e => e.join('')).join('\n'));
+export const wireMatrixToFile = (matrix, filename, delim='') => {
+  writeOutput(filename, matrix.map(e => e.join(delim)).join('\n'));
 }
 
 /**
@@ -610,3 +616,11 @@ export const graphTopoSort = graph => {
  */
 export const sigma = n => n <= 0 ? 0 : n + sigma(--n);
 
+
+export const splitAt = n => arr => [arr.slice(0, n), arr.slice(n)];
+
+export const insertFlatAt = (target, extra, n) => extra.length > 0 ? [...target.slice(0, n), ...extra, ...target.slice(n + 1)] : target;
+
+export const goFlat = arr => arr.reduce((p, c) => {
+  return c.length ? [...p, ...c] : [...p, c];
+}, []);
