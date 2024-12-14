@@ -46,7 +46,7 @@ export const splitChar = input => input.split('');
  * @returns {function(*): *}
  */
 export const splitOnWhiteSpace = (func = B.identity) =>
-    line => line.split(/\s+/).map(func);
+  line => line.split(/\s+/).map(func);
 
 
 /**
@@ -211,6 +211,10 @@ export const testBetween = (min, max) =>
   ([minV, maxV]) => minV >= min && maxV <= max;
 
 
+export const makeMatrix = (h,w, fill = '.') =>
+  Array(h).fill(null).map(() => Array(w).fill(fill));
+
+
 /**
  * A function that rotates a given 2D matrix (array of arrays) 90
  * degrees clockwise.
@@ -238,6 +242,16 @@ export const rotateMatrix = arr => {
     return [...p, col]
   }, [])
 }
+
+
+export const rotateMatrixRight = matrix => {
+  const colFunc = B.columnAt(matrix)
+  return matrix[0].reduce((p, _, i) => {
+    const col = colFunc(i).toReversed();
+    return [...p, col]
+  }, [])
+}
+
 
 /**
  * Constructs a new 2D matrix (array of arrays) by transforming the input
@@ -407,16 +421,16 @@ export const readMatrix = matrix => {
   return coords => coords.map(func);
 }
 
-export const allAround = ([r,c]) => [
-  [r-1,c-1], [r-1,c], [r-1,c+1],
-  [r,  c-1],          [r,  c+1],
-  [r+1,c-1], [r+1,c], [r+1,c+1],
+export const allAround = ([r, c]) => [
+  [r - 1, c - 1], [r - 1, c], [r - 1, c + 1],
+  [r, c - 1],                 [r, c + 1],
+  [r + 1, c - 1], [r + 1, c], [r + 1, c + 1],
 ];
 
-export const crossAround = ([r,c]) => [
-            [r-1,c],
-  [r,  c-1],          [r,  c+1],
-             [r+1,c],
+export const crossAround = ([r, c]) => [
+               [r - 1, c],
+     [r, c - 1],         [r, c + 1],
+               [r + 1, c],
 ];
 
 
@@ -429,7 +443,7 @@ export const crossAround = ([r,c]) => [
  *      with the matrix data.
  * @param delim
  */
-export const wireMatrixToFile = (matrix, filename, delim='') => {
+export const wireMatrixToFile = (matrix, filename, delim = '') => {
   writeOutput(filename, matrix.map(e => e.join(delim)).join('\n'));
 }
 
@@ -476,7 +490,6 @@ export const reverseHeading = ([r, c]) => [r * -1, c * -1]
 export const sumArrs = (arr1, arr2) => arr1.map((e, i) => e + arr2[i]);
 
 export const difArrs = (arr1, arr2) => arr1.map((e, i) => e - arr2[i]);
-
 
 
 /**
