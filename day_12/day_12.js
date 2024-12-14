@@ -41,7 +41,11 @@ const check = (e, t) => {
   return [1, l, matesAt];
 }
 
+// Helper function to get the position above me.
+const topOfMe = ([r, c]) => [r - 1, c];
 
+// Build a map of all the areas, and their member positions.
+// We calculate the circumference of each area here too.
 matrix.forEach((row, ri) => {
   row.forEach((col, ci) => {
     const e = [ri, ci];
@@ -64,6 +68,8 @@ matrix.forEach((row, ri) => {
   })
 });
 
+// Extend the map with a sub-matrix where the member elements are placed
+// in a smaller matrix only covering its extents.
 [...areaMap.entries()].forEach(([k, {t, members, area, circ}]) => {
   const [[minSr, minSc], [maxSr, maxSc]] = findExtents(members);
   const height = maxSr - minSr + 1;
@@ -77,9 +83,7 @@ matrix.forEach((row, ri) => {
   // wireMatrixToFile(subMatrix, `aoc_12_SUB_${k}.txt`)
 });
 
-
-const topOfMe = ([r, c]) => [r - 1, c];
-
+// Process each area.
 [...areaMap.entries()].forEach(([k, {t, area, circ, subMatrix, sides}]) => {
 
   // For each row, count the number of times an element is marked, 
