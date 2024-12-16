@@ -9,7 +9,12 @@ const parseTotal = s => {
   return s.split(',').map(e => e.trim().split('=')[1]).map(Number);
 };
 
+// Task 1
+// const offset = 0;
+
+// Task 2
 const offset = 10000000000000;
+
 const gameMap = inputStrings.reduce((p, c, i) => {
   const id = (i - i % 4) / 4;
   const item = p.get(id) || {};
@@ -53,4 +58,3 @@ let total = 0;
 })
 
 inspect(total);
-
